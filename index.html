@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suno プロンプト生成システム - Instrumental専用</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <header class="header">
+            <h1>🎵 Suno プロンプト生成システム</h1>
+            <p class="subtitle">Instrumental専用 音楽プロンプトジェネレーター</p>
+            <div class="guide">
+                <p>💡 タグを選択して、Suno AI用のプロンプトを自動生成しましょう</p>
+            </div>
+        </header>
+
+        <!-- 入力セクション -->
+        <section class="input-section">
+            <h2>📝 基本情報</h2>
+            <div class="input-group">
+                <label for="title">曲名</label>
+                <input type="text" id="title" placeholder="例: Neon Dreams">
+            </div>
+            <div class="input-group">
+                <label for="theme">テーマ・イメージ</label>
+                <textarea id="theme" rows="2" placeholder="例: 未知の銀河を探索する宇宙の旅"></textarea>
+            </div>
+        </section>
+
+        <!-- タグ選択セクション -->
+        <section class="tags-section">
+            <h2>🏷️ タグ選択</h2>
+
+            <!-- Genre -->
+            <div class="tag-category">
+                <h3>🎸 Genre & Style <span class="required">*必須</span></h3>
+                <div id="genre-tags" class="tag-grid"></div>
+            </div>
+
+            <!-- Mood -->
+            <div class="tag-category">
+                <h3>😊 Mood（雰囲気・感情）</h3>
+                <div id="mood-tags" class="tag-grid"></div>
+            </div>
+
+            <!-- Energy -->
+            <div class="tag-category">
+                <h3>⚡ Energy（勢い・強度）</h3>
+                <div id="energy-tags" class="tag-grid"></div>
+            </div>
+
+            <!-- Instrumentation -->
+            <div class="tag-category">
+                <h3>🎹 Instrumentation（楽器編成）</h3>
+                <div id="instrument-tags" class="tag-grid"></div>
+            </div>
+
+            <!-- Production Style -->
+            <div class="tag-category">
+                <h3>🎚️ Production Style</h3>
+                <div id="production-tags" class="tag-grid"></div>
+            </div>
+
+            <!-- Song Structure -->
+            <div class="tag-category">
+                <h3>📊 Song Structure</h3>
+                <div id="structure-tags" class="tag-grid"></div>
+            </div>
+        </section>
+
+        <!-- プレビューセクション -->
+        <section class="preview-section">
+            <h2>👁️ プロンプトプレビュー</h2>
+            <div class="preview-box">
+                <div class="preview-item">
+                    <strong>Title:</strong>
+                    <div id="preview-title" class="preview-content">Untitled</div>
+                </div>
+                <div class="preview-item">
+                    <strong>Theme/Description:</strong>
+                    <div id="preview-theme" class="preview-content">-</div>
+                </div>
+                <div class="preview-item">
+                    <strong>Style Prompt:</strong>
+                    <div id="preview-style" class="preview-content">-</div>
+                </div>
+                <div class="preview-item">
+                    <strong>Lyrics (Custom Mode):</strong>
+                    <pre id="preview-lyrics" class="preview-content">[Intro]
+[Instrumental]
+[Verse]
+[Instrumental]
+[Chorus]
+[Instrumental]
+[Outro]
+[Instrumental]</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- アクションセクション -->
+        <section class="action-section">
+            <button id="copy-btn" class="btn btn-primary">📋 プロンプトをコピー</button>
+            <button id="reset-btn" class="btn btn-secondary">🔄 リセット</button>
+            <div id="copy-message" class="copy-message"></div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="footer">
+            <p>Made for Suno AI Instrumental Music Generation</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
