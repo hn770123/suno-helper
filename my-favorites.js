@@ -122,6 +122,25 @@ const sunoPromptConfig = {
         { value: 'Distorted Guitar', label: 'ディストーテッドギター', desc: '強く歪んだギターサウンド' },
         { value: '7-String Guitar', label: '7弦ギター', desc: '超低音域が出せる7弦ギター' },
         { value: 'Down-tuned Guitar', label: 'ダウンチューンドギター', desc: '通常より低い音程に調整したギター' },
+        // Bass tags (Fieldy-style from Life Is Peachy)
+        { value: 'Slap Bass', label: 'スラップベース', desc: '親指で弦を叩き、指で引っ張る奏法。ファンク、Nu-Metal特有' },
+        { value: 'Percussive Bass', label: 'パーカッシブベース', desc: '打楽器的なベース演奏。カチカチした金属音が特徴' },
+        { value: '5-String Bass', label: '5弦ベース', desc: '超低音域が出せるベース（Low B弦追加）' },
+        { value: 'Down-tuned Bass', label: 'ダウンチューンドベース', desc: '通常より低い音程に調整したベース' },
+        { value: 'Crunchy Bass', label: 'クランキーベース', desc: 'バリバリした歪んだベース音' },
+        { value: 'Clicking Bass', label: 'クリッキングベース', desc: 'カチカチとした打撃音の強いベース' },
+        { value: 'Funky Bassline', label: 'ファンキーベースライン', desc: 'ファンク的なグルーヴィーなベース' },
+        // Drum/Percussion tags (David Silveria-style from Life Is Peachy)
+        { value: 'Jazz Brushes', label: 'ジャズブラシ', desc: 'ブラシを使った柔らかいスウィングリズム' },
+        { value: 'Swing Groove', label: 'スウィンググルーヴ', desc: 'ジャズ特有の跳ねるリズム' },
+        { value: 'Tribal Rhythms', label: 'トライバルリズム', desc: '部族音楽的な原始的リズム' },
+        { value: 'Tribal Drums', label: 'トライバルドラム', desc: '部族的な打楽器。力強く原始的' },
+        { value: 'Toms', label: 'タム', desc: 'トライバルなフィルのための打楽器' },
+        { value: 'Explosive Drumming', label: 'エクスプローシブドラミング', desc: '爆発的なドラム演奏' },
+        { value: 'Ride Cymbal', label: 'ライドシンバル', desc: 'ジャズで使うシンバル、滑らかな音' },
+        { value: 'Syncopated Drums', label: 'シンコペーテッドドラム', desc: '予想外のタイミングで強拍を入れる' },
+        { value: 'Polyrhythmic Drums', label: 'ポリリズミックドラム', desc: '複数のリズムが同時進行' },
+        { value: 'Hard Bop Drumming', label: 'ハードバップドラミング', desc: 'ジャズのハードバップスタイル、激しく技巧的' },
     ],
 
     // Production Style
@@ -149,18 +168,29 @@ const sunoPromptConfig = {
         { value: '[Drop]', label: 'ドロップ', desc: 'EDMなどで盛り上がりが爆発する部分' },
         { value: '[Break]', label: 'ブレイク', desc: '一旦リズムや音を減らす部分' },
         { value: '[Breakdown]', label: 'ブレイクダウン', desc: '重く遅いリフセクション、メタルの定番' },
+        { value: '[Heavy Riff]', label: 'ヘヴィリフ', desc: '重厚なギターリフのセクション' },
+        { value: '[Groove Section]', label: 'グルーヴセクション', desc: 'グルーヴ重視のリフパート' },
+        { value: '[Groove]', label: 'グルーヴ', desc: 'リズムの自然な流れを強調（メタオブジェクト）' },
         { value: '[Outro]', label: 'アウトロ', desc: '曲の終わり、エンディング' },
     ]
 };
 
-// プリセット設定（Korn "Life Is Peachy"風）
+// プリセット設定（Korn "Life Is Peachy"風 - 詳細版）
 const myFavoritesPreset = {
-    genre: ['Heavy Metal', 'Groove Metal'],
+    genre: ['Heavy Metal', 'Groove Metal', 'Nu-Metal'],
     mood: ['Dark', 'Intense', 'Brooding', 'Aggressive'],
     energy: 'High Energy',
-    instruments: ['Electric Guitar', 'Electric Bass', 'Drums', 'Distorted Guitar', '7-String Guitar', 'Down-tuned Guitar'],
-    production: ['Distorted', 'Heavily Compressed', 'Lo-fi Aesthetic', 'Raw Production'],
-    structure: ['[Intro]', '[Verse]', '[Breakdown]', '[Chorus]', '[Bridge]', '[Outro]']
+    instruments: [
+        // Guitar
+        'Electric Guitar', 'Distorted Guitar', '7-String Guitar', 'Down-tuned Guitar',
+        // Bass (Fieldy-style)
+        'Slap Bass', 'Percussive Bass', '5-String Bass', 'Crunchy Bass', 'Clicking Bass',
+        // Drums (David Silveria-style)
+        'Drums', 'Tribal Drums', 'Tribal Rhythms', 'Jazz Brushes', 'Swing Groove',
+        'Explosive Drumming', 'Syncopated Drums'
+    ],
+    production: ['Distorted', 'Heavily Compressed', 'Lo-fi Aesthetic', 'Raw Production', 'Crunchy Tone'],
+    structure: ['[Intro]', '[Heavy Riff]', '[Verse]', '[Breakdown]', '[Chorus]', '[Groove Section]', '[Bridge]', '[Outro]']
 };
 
 // 選択状態を管理
