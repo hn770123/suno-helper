@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suno プロンプト生成システム - Instrumental専用</title>
+    <title>Suno プロンプト生成システム - My Favorites (Korn "Life Is Peachy"風)</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <!-- ヘッダー -->
         <header class="header">
-            <h1>🎵 Suno プロンプト生成システム</h1>
-            <p class="subtitle">Instrumental専用 音楽プロンプトジェネレーター</p>
+            <h1>🎵 Suno プロンプト生成システム - My Favorites</h1>
+            <p class="subtitle">Korn "Life Is Peachy"風 ヘヴィメタルプリセット</p>
             <div class="guide">
-                <p>💡 タグを選択して、Suno AI用のプロンプトを自動生成しましょう</p>
-                <p><a href="my-favorites.html" style="color: #64b5f6;">🎸 My Favorites版（Korn "Life Is Peachy"風プリセット）へ →</a></p>
+                <p>💡 プリセット設定で、Korn風のヘヴィメタルサウンドを簡単に生成しましょう</p>
+                <p><a href="index.html" style="color: #64b5f6;">← 通常版に戻る</a></p>
             </div>
         </header>
 
@@ -23,13 +23,13 @@
             <h2>📝 基本情報</h2>
             <div class="input-group">
                 <label for="title">曲名</label>
-                <input type="text" id="title" placeholder="例: Neon Dreams">
+                <input type="text" id="title" placeholder="例: Heavy Riff">
                 <button id="sample-title-btn" class="sample-btn">📋 サンプルから選ぶ</button>
                 <div id="sample-title-list" class="sample-list hidden"></div>
             </div>
             <div class="input-group">
                 <label for="theme">テーマ・イメージ</label>
-                <textarea id="theme" rows="2" placeholder="例: 未知の銀河を探索する宇宙の旅"></textarea>
+                <textarea id="theme" rows="2" placeholder="例: 暗く攻撃的なヘヴィグルーヴ"></textarea>
                 <button id="sample-theme-btn" class="sample-btn">📋 サンプルから選ぶ</button>
                 <div id="sample-theme-list" class="sample-list hidden"></div>
             </div>
@@ -37,7 +37,7 @@
 
         <!-- タグ選択セクション -->
         <section class="tags-section">
-            <h2>🏷️ タグ選択</h2>
+            <h2>🏷️ タグ選択（プリセット適用済み）</h2>
 
             <!-- Genre -->
             <div class="tag-category">
@@ -115,10 +115,10 @@
 
         <!-- フッター -->
         <footer class="footer">
-            <p>Made for Suno AI Instrumental Music Generation</p>
+            <p>Made for Suno AI Instrumental Music Generation - My Favorites Preset</p>
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="my-favorites.js"></script>
 </body>
 </html>
