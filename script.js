@@ -2,6 +2,67 @@
 
 // データ定義
 const sunoPromptConfig = {
+    // サンプルデータ
+    samples: {
+        titles: [
+            'Neon Dreams',
+            'Mountain Echo',
+            'Digital Sunset',
+            'Autumn Memories',
+            'Cosmic Journey',
+            'Urban Pulse',
+            'Forest Whispers',
+            'Electric Horizon',
+            'Midnight Drive',
+            'Ocean Depths',
+            'Crystal Cave',
+            'Tokyo Nights'
+        ],
+
+        themes: [
+            {
+                text: '未知の銀河を探索する宇宙の旅',
+                en: 'A journey through space exploring unknown galaxies'
+            },
+            {
+                text: '雨の夜、居心地の良いカフェでの静かな時間',
+                en: 'Rainy evening in a cozy café'
+            },
+            {
+                text: 'ネオンに照らされた街でのハイスピードチェイス',
+                en: 'High-speed chase through neon-lit streets'
+            },
+            {
+                text: '日本庭園での穏やかな朝',
+                en: 'Peaceful morning in a Japanese garden'
+            },
+            {
+                text: '光と闇の壮大な戦い',
+                en: 'Epic battle between light and darkness'
+            },
+            {
+                text: '夏休みの懐かしい思い出',
+                en: 'Nostalgic memories of summer vacation'
+            },
+            {
+                text: '深夜3時のアンダーグラウンドテクノクラブ',
+                en: 'Underground techno club at 3am'
+            },
+            {
+                text: '古代寺院の遺跡での瞑想',
+                en: 'Meditation in ancient temple ruins'
+            },
+            {
+                text: '朝焼けの海岸線をドライブ',
+                en: 'Sunrise drive along the coastline'
+            },
+            {
+                text: '近未来都市の喧騒と孤独',
+                en: 'Hustle and loneliness in a futuristic city'
+            }
+        ]
+    },
+
     // Genre & Style
     genres: [
         { value: 'Synthwave', label: 'シンセウェーブ', desc: '80年代風のレトロなシンセサウンド' },
@@ -188,6 +249,67 @@ function setupEventListeners() {
 
     document.getElementById('copy-btn').addEventListener('click', copyToClipboard);
     document.getElementById('reset-btn').addEventListener('click', resetAll);
+
+    // サンプル選択ボタン
+    document.getElementById('sample-title-btn').addEventListener('click', () => {
+        toggleSampleList('sample-title-list', 'titles');
+    });
+
+    document.getElementById('sample-theme-btn').addEventListener('click', () => {
+        toggleSampleList('sample-theme-list', 'themes');
+    });
+}
+
+// サンプルリストの表示切り替え
+function toggleSampleList(listId, type) {
+    const listElement = document.getElementById(listId);
+
+    // 既に表示されている場合は非表示にする
+    if (!listElement.classList.contains('hidden')) {
+        listElement.classList.add('hidden');
+        return;
+    }
+
+    // 他のサンプルリストを閉じる
+    document.querySelectorAll('.sample-list').forEach(list => {
+        list.classList.add('hidden');
+    });
+
+    // サンプルリストを生成
+    listElement.innerHTML = '';
+
+    if (type === 'titles') {
+        sunoPromptConfig.samples.titles.forEach(title => {
+            const item = document.createElement('div');
+            item.className = 'sample-item';
+            item.textContent = title;
+            item.addEventListener('click', () => {
+                document.getElementById('title').value = title;
+                selections.title = title;
+                updatePreview();
+                listElement.classList.add('hidden');
+            });
+            listElement.appendChild(item);
+        });
+    } else if (type === 'themes') {
+        sunoPromptConfig.samples.themes.forEach(theme => {
+            const item = document.createElement('div');
+            item.className = 'sample-item';
+            item.innerHTML = `
+                <div class="sample-theme-text">${theme.text}</div>
+                <div class="sample-theme-en">${theme.en}</div>
+            `;
+            item.addEventListener('click', () => {
+                document.getElementById('theme').value = theme.en;
+                selections.theme = theme.en;
+                updatePreview();
+                listElement.classList.add('hidden');
+            });
+            listElement.appendChild(item);
+        });
+    }
+
+    listElement.classList.remove('hidden');
 }
 
 // プレビュー更新
@@ -235,6 +357,7 @@ function generatePrompt() {
 function copyToClipboard() {
     const prompt = generatePrompt();
 
+    // プレーンテキストとして構築（スペースと改行を保持）
     const fullPrompt = `Title: ${prompt.title}
 
 Theme/Description: ${prompt.description || 'N/A'}
@@ -248,11 +371,52 @@ ${prompt.lyrics}
 [Instrumental]
 `;
 
-    navigator.clipboard.writeText(fullPrompt).then(() => {
-        showCopyMessage('✅ プロンプトをクリップボードにコピーしました！');
-    }).catch(() => {
+    // Clipboard APIを使用してプレーンテキストとしてコピー
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullPrompt).then(() => {
+            showCopyMessage('✅ プロンプトをクリップボードにコピーしました！');
+        }).catch((err) => {
+            console.error('Clipboard API failed:', err);
+            fallbackCopyToClipboard(fullPrompt);
+        });
+    } else {
+        // Clipboard APIが利用できない場合のフォールバック
+        fallbackCopyToClipboard(fullPrompt);
+    }
+}
+
+// フォールバックコピー機能（古いブラウザ対応）
+function fallbackCopyToClipboard(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.top = '0';
+    textArea.style.left = '0';
+    textArea.style.width = '2em';
+    textArea.style.height = '2em';
+    textArea.style.padding = '0';
+    textArea.style.border = 'none';
+    textArea.style.outline = 'none';
+    textArea.style.boxShadow = 'none';
+    textArea.style.background = 'transparent';
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+            showCopyMessage('✅ プロンプトをクリップボードにコピーしました！');
+        } else {
+            showCopyMessage('❌ コピーに失敗しました');
+        }
+    } catch (err) {
+        console.error('Fallback copy failed:', err);
         showCopyMessage('❌ コピーに失敗しました');
-    });
+    }
+
+    document.body.removeChild(textArea);
 }
 
 // コピーメッセージ表示
