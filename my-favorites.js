@@ -1,64 +1,54 @@
-// Suno プロンプト生成システム - メインスクリプト
+// Suno プロンプト生成システム - My Favorites (Korn "Life Is Peachy"風)
 
 // データ定義
 const sunoPromptConfig = {
     // サンプルデータ
     samples: {
         titles: [
-            'Neon Dreams',
-            'Mountain Echo',
-            'Digital Sunset',
-            'Autumn Memories',
-            'Cosmic Journey',
-            'Urban Pulse',
-            'Forest Whispers',
-            'Electric Horizon',
-            'Midnight Drive',
-            'Ocean Depths',
-            'Crystal Cave',
-            'Tokyo Nights'
+            'Heavy Riff',
+            'Breakdown Fury',
+            'Dark Groove',
+            'Seven String Chaos',
+            'Life Is Heavy',
+            'Down Tuned Aggression',
+            'Metallic Anger',
+            'Crushing Weight',
+            'Distorted Reality',
+            'Raw Power'
         ],
 
         themes: [
             {
-                text: '未知の銀河を探索する宇宙の旅',
-                en: 'A journey through space exploring unknown galaxies'
+                text: '暗く攻撃的なヘヴィグルーヴ',
+                en: 'Dark and aggressive heavy groove'
             },
             {
-                text: '雨の夜、居心地の良いカフェでの静かな時間',
-                en: 'Rainy evening in a cozy café'
+                text: '怒りと不安を表現する激しいリフ',
+                en: 'Intense riffs expressing anger and anxiety'
             },
             {
-                text: 'ネオンに照らされた街でのハイスピードチェイス',
-                en: 'High-speed chase through neon-lit streets'
+                text: '重く歪んだギターサウンドの暴力的な衝撃',
+                en: 'Violent impact of heavy distorted guitar sound'
             },
             {
-                text: '日本庭園での穏やかな朝',
-                en: 'Peaceful morning in a Japanese garden'
+                text: 'ダウンチューンドギターによる超低音の圧迫感',
+                en: 'Oppressive ultra-low frequencies from down-tuned guitars'
             },
             {
-                text: '光と闇の壮大な戦い',
-                en: 'Epic battle between light and darkness'
+                text: 'カオティックで不穏な雰囲気のヘヴィメタル',
+                en: 'Chaotic and disturbing atmosphere of heavy metal'
             },
             {
-                text: '夏休みの懐かしい思い出',
-                en: 'Nostalgic memories of summer vacation'
+                text: '7弦ギターの重厚なブレイクダウン',
+                en: 'Massive breakdown with 7-string guitar'
             },
             {
-                text: '深夜3時のアンダーグラウンドテクノクラブ',
-                en: 'Underground techno club at 3am'
+                text: 'ローファイでラウドな生々しいサウンド',
+                en: 'Lo-fi loud and raw sound'
             },
             {
-                text: '古代寺院の遺跡での瞑想',
-                en: 'Meditation in ancient temple ruins'
-            },
-            {
-                text: '朝焼けの海岸線をドライブ',
-                en: 'Sunrise drive along the coastline'
-            },
-            {
-                text: '近未来都市の喧騒と孤独',
-                en: 'Hustle and loneliness in a futuristic city'
+                text: 'グルーヴィーで攻撃的なニューメタル',
+                en: 'Groovy and aggressive nu-metal'
             }
         ]
     },
@@ -163,6 +153,16 @@ const sunoPromptConfig = {
     ]
 };
 
+// プリセット設定（Korn "Life Is Peachy"風）
+const myFavoritesPreset = {
+    genre: ['Heavy Metal', 'Groove Metal'],
+    mood: ['Dark', 'Intense', 'Brooding', 'Aggressive'],
+    energy: 'High Energy',
+    instruments: ['Electric Guitar', 'Electric Bass', 'Drums', 'Distorted Guitar', '7-String Guitar', 'Down-tuned Guitar'],
+    production: ['Distorted', 'Heavily Compressed', 'Lo-fi Aesthetic', 'Raw Production'],
+    structure: ['[Intro]', '[Verse]', '[Breakdown]', '[Chorus]', '[Bridge]', '[Outro]']
+};
+
 // 選択状態を管理
 const selections = {
     title: '',
@@ -179,6 +179,7 @@ const selections = {
 document.addEventListener('DOMContentLoaded', () => {
     initializeTags();
     setupEventListeners();
+    applyPreset();
     updatePreview();
 });
 
@@ -212,6 +213,76 @@ function renderTags(containerId, tags, category, allowMultiple) {
 
         container.appendChild(button);
     });
+}
+
+// プリセットを適用
+function applyPreset() {
+    // Genre
+    myFavoritesPreset.genre.forEach(genreValue => {
+        const button = findTagButton('genre-tags', genreValue);
+        if (button) {
+            button.classList.add('selected');
+            selections.genre.push(genreValue);
+        }
+    });
+
+    // Mood
+    myFavoritesPreset.mood.forEach(moodValue => {
+        const button = findTagButton('mood-tags', moodValue);
+        if (button) {
+            button.classList.add('selected');
+            selections.mood.push(moodValue);
+        }
+    });
+
+    // Energy
+    const energyButton = findTagButton('energy-tags', myFavoritesPreset.energy);
+    if (energyButton) {
+        energyButton.classList.add('selected');
+        selections.energy = myFavoritesPreset.energy;
+    }
+
+    // Instruments
+    myFavoritesPreset.instruments.forEach(instrumentValue => {
+        const button = findTagButton('instrument-tags', instrumentValue);
+        if (button) {
+            button.classList.add('selected');
+            selections.instruments.push(instrumentValue);
+        }
+    });
+
+    // Production
+    myFavoritesPreset.production.forEach(productionValue => {
+        const button = findTagButton('production-tags', productionValue);
+        if (button) {
+            button.classList.add('selected');
+            selections.production.push(productionValue);
+        }
+    });
+
+    // Structure
+    myFavoritesPreset.structure.forEach(structureValue => {
+        const button = findTagButton('structure-tags', structureValue);
+        if (button) {
+            button.classList.add('selected');
+            selections.structure.push(structureValue);
+        }
+    });
+}
+
+// タグボタンを見つける
+function findTagButton(containerId, value) {
+    const container = document.getElementById(containerId);
+    const buttons = container.querySelectorAll('.tag-button');
+
+    for (let button of buttons) {
+        const valueSpan = button.querySelector('.tag-value');
+        if (valueSpan && valueSpan.textContent === value) {
+            return button;
+        }
+    }
+
+    return null;
 }
 
 // タグクリック処理
@@ -464,6 +535,8 @@ function resetAll() {
         btn.classList.remove('selected');
     });
 
+    // プリセットを再適用
+    applyPreset();
     updatePreview();
-    showCopyMessage('🔄 リセットしました');
+    showCopyMessage('🔄 リセットしました（プリセットを再適用）');
 }
